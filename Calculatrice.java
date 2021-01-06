@@ -7,7 +7,7 @@ public class Calculatrice extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public Calculatrice(){
-		this.setSize(240, 260);
+		this.setSize(180, 240);
 		this.setTitle("Calculette");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
@@ -26,7 +26,7 @@ public class Calculatrice extends JFrame {
 		controleur.setView(view);
 		
 		this.getContentPane().add(view, BorderLayout.NORTH);
-		this.getContentPane().add(controleur.getChiffre(), BorderLayout.CENTER);
+		this.getContentPane().add(controleur.getChiffre(), BorderLayout.WEST);
 		this.getContentPane().add(controleur.getOperateur(), BorderLayout.EAST);
 	}
 }

@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 public class ControleurOperator extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	String[] tab_string = {"=", "C", "+", "-", "*", "/"};
+	String[] tab_string = {};
 	JButton[] tab_button = new JButton[tab_string.length];
 	private Dimension dim = new Dimension(50, 40);
 	private Dimension dim2 = new Dimension(50, 31);

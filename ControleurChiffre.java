@@ -8,22 +8,62 @@ import javax.swing.JPanel;
 
 public class ControleurChiffre extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	String[] tab_string = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "." };
+	String[] tab_string = {"", "", "", "", "", "", "", "", ""};
 	JButton[] tab_button = new JButton[tab_string.length];
-	private Dimension dim = new Dimension(50, 40);
+	private Dimension dim = new Dimension(50, 50);
 	private Controleur controleur;
 	public ControleurChiffre(Controleur controleur){
 		this.controleur=controleur;
 		setPreferredSize(new Dimension(165, 225));
+		int x = 0;
+		int y = 0;
 		for(int i = 0; i < tab_string.length; i++) {
 			tab_button[i] = new JButton(tab_string[i]);
 			tab_button[i].setPreferredSize(dim);
 			add(tab_button[i]);
 			tab_button[i].addActionListener(this);
+			tab_button[i].setName(String.valueOf(x) + String.valueOf(y));
+			if(x == 2)
+			{
+				x = 0;
+				y++;
+			}
+			else
+				x++;
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
-		String str = ((JButton)e.getSource()).getText();
-		controleur.setChiffre(str);
+		JButton button = ((JButton)e.getSource());
+		String raw_coordinates = button.getName();
+		controleur.setPlayerTurn(raw_coordinates);
+		button.setEnabled(false);
+		button.setText("X");
+
+		if (controleur.isGameFinish())
+		{
+			for(int i = 0; i < tab_string.length; i++)
+			{
+					tab_button[i].setEnabled(false);
+			}
+			return;
+		}
+
+		String computerChoice = controleur.setComputerTurn();
+		for(int i = 0; i < tab_string.length; i++) {
+			if (tab_button[i].getName().equals(computerChoice))
+			{
+				tab_button[i].setEnabled(false);
+				tab_button[i].setText("O");
+			}
+		}
+
+		if (controleur.isGameFinish())
+		{
+			for(int i = 0; i < tab_string.length; i++)
+			{
+				tab_button[i].setEnabled(false);
+			}
+			return;
+		}
 	}
 }

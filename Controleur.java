@@ -13,10 +13,41 @@ public class Controleur {
 	private String operation = "";
 	double nombre;
 
+
+
 	public Controleur(){
 		jcchiffre = new ControleurChiffre(this);
-		jcoperateur = new ControleurOperator(this);        
+		jcoperateur = new ControleurOperator(this);
+		modele = new Modele();
 	}
+
+	public void setPlayerTurn(String coordinates)
+	{
+		modele.playerTurn(coordinates);
+	}
+
+	public String setComputerTurn()
+	{
+		return modele.computerTurn();
+	}
+
+	public boolean isGameFinish()
+	{
+		if (modele.isWon())
+		{
+			if (modele.isPlayerWon())
+			{
+				changeValue("Bravo ! Vous avez gagné !");
+			}
+			if (modele.isComputerWon())
+			{
+				changeValue("L'ordinateur a gagné.");
+			}
+			return true;
+		}
+		return false;
+	}
+
 	public void setModele(Modele modele){
 		this.modele=modele;
 	}
@@ -52,6 +83,7 @@ public class Controleur {
 		}
 	}	
 	public void setChiffre(String str) {
+		changeValue("");
 		if(update){
 			update = false;
 		} else {
