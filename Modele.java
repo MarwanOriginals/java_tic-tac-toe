@@ -91,7 +91,27 @@ public class Modele  {
 				return true;
 			}
 		}
+
+		boolean isDraw = true;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j]== 0)
+					isDraw = false;
+			}
+		}
+		if (isDraw)
+			return true;
+
 		return false;
+	}
+
+	public void resetGame()
+	{
+		board = new int[][]{
+				{0, 0, 0},
+				{0, 0, 0},
+				{0, 0, 0}
+		};
 	}
 
 	public boolean isPlayerWon() {

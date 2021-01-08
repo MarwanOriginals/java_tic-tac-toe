@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.Component;
 
 public class Controleur {
@@ -28,10 +29,33 @@ public class Controleur {
 
 	public String setComputerTurn()
 	{
+		String loading_dot = "";
+		for (int i = 0; i <= 3; i++)
+		{
+			String finalLoading_dot = loading_dot;
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					changeValue("L'ordinateur réfléchi" + finalLoading_dot);
+				}
+			});
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			loading_dot += ".";
+		}
+
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				changeValue("Jouez !");
+			}
+		});
+
 		return modele.computerTurn();
 	}
 
-	public boolean isGameFinish()
+	public int isGameFinish()
 	{
 		if (modele.isWon())
 		{
@@ -43,9 +67,18 @@ public class Controleur {
 			{
 				changeValue("L'ordinateur a gagné.");
 			}
-			return true;
+			if (modele.isComputerWon() == false && modele.isPlayerWon()== false) {
+				changeValue("Egalité.");
+				return 2;
+			}
+			return 1;
 		}
-		return false;
+		return 0;
+	}
+
+	public void resetGame()
+	{
+		modele.resetGame();
 	}
 
 	public void setModele(Modele modele){

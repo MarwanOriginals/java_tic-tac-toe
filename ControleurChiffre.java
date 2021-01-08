@@ -1,9 +1,9 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 public class ControleurChiffre extends JPanel implements ActionListener {
@@ -39,7 +39,7 @@ public class ControleurChiffre extends JPanel implements ActionListener {
 		button.setEnabled(false);
 		button.setText("X");
 
-		if (controleur.isGameFinish())
+		if (controleur.isGameFinish() == 1)
 		{
 			for(int i = 0; i < tab_string.length; i++)
 			{
@@ -47,23 +47,72 @@ public class ControleurChiffre extends JPanel implements ActionListener {
 			}
 			return;
 		}
-
-		String computerChoice = controleur.setComputerTurn();
-		for(int i = 0; i < tab_string.length; i++) {
-			if (tab_button[i].getName().equals(computerChoice))
-			{
-				tab_button[i].setEnabled(false);
-				tab_button[i].setText("O");
-			}
-		}
-
-		if (controleur.isGameFinish())
+		else if (controleur.isGameFinish() == 2)
 		{
+			controleur.resetGame();
 			for(int i = 0; i < tab_string.length; i++)
 			{
-				tab_button[i].setEnabled(false);
+				tab_button[i].setEnabled(true);
+				tab_button[i].setText("");
 			}
 			return;
 		}
+
+
+		new Thread(new Runnable() {
+			public void run()
+			{
+				for(int i = 0; i < tab_string.length; i++)
+				{
+					tab_button[i].setEnabled(false);
+				}
+				String computerChoice = controleur.setComputerTurn();
+				try {
+					SwingUtilities.invokeAndWait(new Runnable() {
+						public void run() {
+
+
+							for(int i = 0; i < tab_string.length; i++) {
+								if (tab_button[i].getName().equals(computerChoice))
+								{
+									tab_button[i].setEnabled(false);
+									tab_button[i].setText("O");
+								}
+							}
+
+							if (controleur.isGameFinish() == 1)
+							{
+								for(int i = 0; i < tab_string.length; i++)
+								{
+									tab_button[i].setEnabled(false);
+								}
+								return;
+							}
+							else if (controleur.isGameFinish() == 2)
+							{
+								controleur.resetGame();
+								for(int i = 0; i < tab_string.length; i++)
+								{
+									tab_button[i].setEnabled(true);
+									tab_button[i].setText("");
+								}
+								return;
+							}
+
+
+						}
+					});
+				} catch (InterruptedException interruptedException) {
+					interruptedException.printStackTrace();
+				} catch (InvocationTargetException invocationTargetException) {
+					invocationTargetException.printStackTrace();
+				}
+				for(int i = 0; i < tab_string.length; i++)
+				{
+					if (tab_button[i].getText().equals("") && controleur.isGameFinish() == 0)
+						tab_button[i].setEnabled(true);
+				}
+			}
+		}).start();
 	}
 }
