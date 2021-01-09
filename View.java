@@ -15,7 +15,7 @@ public class View extends JPanel {
 		Font police = new Font("Arial", Font.BOLD, 12);
 		value.setFont(police);
 		value.setHorizontalAlignment(JLabel.RIGHT);
-		value.setPreferredSize(new Dimension(180, 20));
+		value.setPreferredSize(new Dimension(180, 30));
 		value.setText("Jouez !");
 		value.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(value);

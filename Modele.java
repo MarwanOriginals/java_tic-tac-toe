@@ -2,17 +2,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Modele  {
 	private static final long serialVersionUID = 1L;
-	String value="0";
-	public String getValue(){
-		return value;
-	}
-	public void setValue(String value){
-		this.value=value;
-	}
-	public double getDouble(){
-		return Double.valueOf(value).doubleValue();
-	}
-
 	///////////////////////////////// TIC-TAC-TOE ///////////////////////////////////
 
 	private int[][] board;
@@ -52,6 +41,42 @@ public class Modele  {
 
 		if (isBoardFull == true)
 			return "";
+
+		for(int i = 0; i < board.length; i++)
+		{
+			for (int j = 0; j < board.length; j++)
+			{
+				if(board[i][j] == 0)
+				{
+					board[i][j] = 2;
+					if(isWon() && isComputerWon)
+					{
+						return String.valueOf(i) + String.valueOf(j);
+					}
+					else
+						board[i][j] = 0;
+				}
+			}
+		}
+
+		for(int i = 0; i < board.length; i++)
+		{
+			for (int j = 0; j < board.length; j++)
+			{
+				if(board[i][j] == 0)
+				{
+					board[i][j] = 1;
+					if(isWon() && isPlayerWon)
+					{
+						isPlayerWon = false;
+						board[i][j] = 2;
+						return String.valueOf(i) + String.valueOf(j);
+					}
+					else
+						board[i][j] = 0;
+				}
+			}
+		}
 
 		int x_rand = ThreadLocalRandom.current().nextInt(0, 2 + 1);
 		int y_rand = ThreadLocalRandom.current().nextInt(0, 2 + 1);

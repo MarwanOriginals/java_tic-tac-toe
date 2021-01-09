@@ -6,13 +6,13 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.*;
 
 
-public class ControleurChiffre extends JPanel implements ActionListener {
+public class ControleurTicTacToe extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	String[] tab_string = {"", "", "", "", "", "", "", "", ""};
 	JButton[] tab_button = new JButton[tab_string.length];
 	private Dimension dim = new Dimension(50, 50);
 	private Controleur controleur;
-	public ControleurChiffre(Controleur controleur){
+	public ControleurTicTacToe(Controleur controleur){
 		this.controleur=controleur;
 		setPreferredSize(new Dimension(165, 225));
 		int x = 0;

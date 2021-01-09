@@ -3,12 +3,12 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 
-public class Calculatrice extends JFrame {
+public class TicTacToeGame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	public Calculatrice(){
+	public TicTacToeGame(){
 		this.setSize(180, 240);
-		this.setTitle("Calculette");
+		this.setTitle("Tic-Tac-Toe");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
@@ -26,7 +26,6 @@ public class Calculatrice extends JFrame {
 		controleur.setView(view);
 		
 		this.getContentPane().add(view, BorderLayout.NORTH);
-		this.getContentPane().add(controleur.getChiffre(), BorderLayout.WEST);
-		this.getContentPane().add(controleur.getOperateur(), BorderLayout.EAST);
+		this.getContentPane().add(controleur.getTicTacToe(), BorderLayout.WEST);
 	}
 }
